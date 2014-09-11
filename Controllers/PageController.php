@@ -25,8 +25,9 @@ class PageController extends CoreController
             $qs = Page::objects()->filter(['is_published' => true, 'url' => '/' . $url]);
         }
 
-        $model = $qs->get();
-        if ($model === null) {
+        $cache = Mindy::app()->cache;
+        $model = $cache->get('page_' . $url, $qs->get());
+        if($model === null) {
             $this->error(404);
         }
 
@@ -62,7 +63,7 @@ class PageController extends CoreController
 
         $helpForm = new HelpForm();
         $helpForm->templateCode = 'feedback.help_opt';
-        if(Mindy::app()->request->getIsPostRequest() && $helpForm->setAttributes($_POST) && $helpForm->isValid()) {
+        if($this->r->isPost && $helpForm->setAttributes($this->r->post) && $helpForm->isValid()) {
             $helpForm->send();
             echo $this->json([
                 'success' => true,
