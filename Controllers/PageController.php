@@ -60,23 +60,10 @@ class PageController extends CoreController
 
         $pager = new Pagination($qs);
         $children = $pager->paginate();
-
-        $helpForm = new HelpForm();
-        $helpForm->templateCode = 'feedback.help_opt';
-        if($this->r->isPost && $helpForm->setAttributes($this->r->post) && $helpForm->isValid()) {
-            $helpForm->send();
-            echo $this->json([
-                'success' => true,
-                'title' => 'Запрос успешно отправлен'
-            ]);
-            return;
-        }
-
         return $this->render($this->getView($model), [
             'model' => $model,
             'children' => $children,
-            'pager' => $pager,
-            'help_form' => $helpForm
+            'pager' => $pager
         ]);
     }
 }
