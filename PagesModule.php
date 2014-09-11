@@ -33,6 +33,10 @@ class PagesModule extends Module
                 [
                     'name' => self::t('Text blocks'),
                     'adminClass' => 'BlockAdmin',
+                ],
+                [
+                    'name' => self::t('Comments'),
+                    'adminClass' => 'CommentAdmin',
                 ]
             ]
         ];

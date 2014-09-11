@@ -23,6 +23,8 @@ use Modules\Pages\Models\Page;
 
 class CommentController extends BaseCommentController
 {
+    public $toLink = 'page_id';
+
     /**
      * @return \Modules\Comments\Models\BaseComment
      */
@@ -31,17 +33,26 @@ class CommentController extends BaseCommentController
         return new Comment;
     }
 
-    public function actionView($url)
+    public function fetchModel($url)
     {
         $qs = Page::objects()->published()->filter(['url' => '/' . $url]);
-
-        $cache = Mindy::app()->cache;
-        $model = $cache->get('page_' . $url . '_comments', $qs->get());
+        $model = Mindy::app()->cache->get('page_' . $url . '_comments', $qs->get());
         if($model === null) {
             $this->error(404);
         }
+        return $model;
+    }
 
+    public function actionView($url)
+    {
+        $model = $this->fetchModel($url);
         $this->internalActionList($model);
+    }
+
+    public function actionSave($url)
+    {
+        $model = $this->fetchModel($url);
+        $this->internalActionSave($model);
     }
 
     /**
