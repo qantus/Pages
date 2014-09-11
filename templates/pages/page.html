@@ -1,0 +1,9 @@
+{%- extends request.is_ajax ? "ajax.html" : "pages/base.html" -%}
+
+{%- block heading -%}
+<h1>{{ model.name }}</h1>
+{%- endblock -%}
+
+{%- block content -%}
+{{ model.content|raw }}
+{%- endblock -%}

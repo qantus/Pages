@@ -1,0 +1,37 @@
+<?php
+
+namespace Modules\Pages\Admin;
+
+use Modules\Admin\Components\ModelAdmin;
+use Modules\Pages\Forms\BlockForm;
+use Modules\Pages\Models\Block;
+use Modules\Pages\PagesModule;
+
+class BlockAdmin extends ModelAdmin
+{
+    public function getColumns()
+    {
+        return ['id', 'slug'];
+    }
+
+    public function getCreateForm()
+    {
+        return BlockForm::className();
+    }
+
+    public function getModel()
+    {
+        return new Block;
+    }
+
+    public function getVerboseName()
+    {
+        return PagesModule::t('text block');
+    }
+
+    public function getVerboseNamePlural()
+    {
+        return PagesModule::t('text blocks');
+    }
+}
+
