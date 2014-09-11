@@ -19,10 +19,12 @@ use Mindy\Orm\TreeManager;
 
 class PageManager extends TreeManager
 {
+    /**
+     * @return \Mindy\Orm\TreeQuerySet
+     */
     public function published()
     {
-        return $this->filter([
-            'is_published' => true
-        ]);
+        $this->filter(['is_published' => true]);
+        return $this;
     }
 }

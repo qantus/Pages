@@ -2,11 +2,13 @@
 
 namespace Modules\Pages\Models;
 
+use Mindy\Base\Mindy;
 use Mindy\Helper\Alias;
 use Mindy\Orm\Fields\AutoSlugField;
 use Mindy\Orm\Fields\BooleanField;
 use Mindy\Orm\Fields\CharField;
 use Mindy\Orm\Fields\DateTimeField;
+use Mindy\Orm\Fields\HasManyField;
 use Mindy\Orm\Fields\ImageField;
 use Mindy\Orm\Fields\IntField;
 use Mindy\Orm\Fields\TextField;
@@ -35,7 +37,7 @@ class Page extends TreeModel
 
     public static function getFields()
     {
-        return array_merge(parent::getFields(), [
+        $fields = array_merge(parent::getFields(), [
             'name' => [
                 'class' => CharField::className(),
                 'required' => true,
@@ -83,11 +85,6 @@ class Page extends TreeModel
                 'class' => DateTimeField::className(),
                 'null' => true
             ],
-            'position' => [
-                'class' => IntField::className(),
-                'verboseName' => PagesModule::t('Position'),
-                'null' => true
-            ],
             'view' => [
                 'class' => CharField::className(),
                 'null' => true,
@@ -119,6 +116,15 @@ class Page extends TreeModel
                 'verboseName' => PagesModule::t("Sorting")
             ],
         ]);
+
+        $app = Mindy::app();
+        if($app->hasModule('Comments') && $app->getModule('Pages')->enableComments) {
+            $fields['comments'] = [
+                'class' => HasManyField::className(),
+                'modelClass' => Comment::className()
+            ];
+        }
+        return $fields;
     }
 
     public static function objectsManager($instance = null)
@@ -239,19 +245,9 @@ class Page extends TreeModel
         return parent::save($fields);
     }
 
-    public function onAfterUpdate()
+    public function afterSave($owner, $isNew)
     {
-        parent::onAfterUpdate();
-        $this->recordAction(PagesModule::t('Page [[{url}|{name}]] was updated', [
-            '{url}' => $this->getAbsoluteUrl(),
-            '{name}' => $this->name
-        ]));
-    }
-
-    public function onAfterInsert()
-    {
-        parent::onAfterInsert();
-        $this->recordAction(PagesModule::t('Page [[{url}|{name}]] was created', [
+        $this->recordAction(PagesModule::t('Page [[{url}|{name}]] was ' . ($isNew ? 'created' : 'updated'), [
             '{url}' => $this->getAbsoluteUrl(),
             '{name}' => $this->name
         ]));

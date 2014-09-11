@@ -14,10 +14,31 @@
 
 namespace Modules\Pages\Models;
 
+use Mindy\Orm\Fields\ForeignField;
+use Modules\Comments\Models\BaseComment;
 
-class Comment 
+/**
+ * Class Comment
+ * @package Modules\Comments
+ * @method static \Modules\Comments\Models\CommentManager objects($instance = null)
+ */
+class Comment extends BaseComment
 {
+    public static function getFields()
+    {
+        return array_merge(parent::getFields(), [
+            'page' => [
+                'class' => ForeignField::className(),
+                'modelClass' => Page::className()
+            ]
+        ]);
+    }
 
+    /**
+     * @return BaseComment
+     */
+    public function getRelation()
+    {
+        return $this->page;
+    }
 }
-
- 

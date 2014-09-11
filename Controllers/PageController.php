@@ -12,6 +12,10 @@ class PageController extends CoreController
 {
     public $defaultAction = 'view';
 
+    /**
+     * @param Page $model
+     * @return string
+     */
     protected function getView(Page $model)
     {
         return "pages/" . $model->getView();
@@ -19,11 +23,8 @@ class PageController extends CoreController
 
     public function actionView($url = null)
     {
-        if (empty($url)) {
-            $qs = Page::objects()->filter(['is_index' => true, 'is_published' => true]);
-        } else {
-            $qs = Page::objects()->filter(['is_published' => true, 'url' => '/' . $url]);
-        }
+        $data = empty($url) ? ['is_index' => true] : ['url' => '/' . $url];
+        $qs = $qs = Page::objects()->published()->filter($data);
 
         $cache = Mindy::app()->cache;
         $model = $cache->get('page_' . $url, $qs->get());
@@ -39,6 +40,7 @@ class PageController extends CoreController
     protected function fetchBreadrumbs(Page $model)
     {
         if(!$model->is_index) {
+            /** @var Page[] $pages */
             $pages = $model->tree()->ancestors()->all();
             foreach ($pages as $page) {
                 $this->addTitle($page->name);
@@ -51,19 +53,26 @@ class PageController extends CoreController
 
     public function actionInternal(Page $model)
     {
-        $qs = $model->tree()->children();
-        if ($model->sorting) {
-            $qs = $qs->filter([
-                'is_published' => true
-            ])->order([$model->sorting]);
-        }
-
-        $pager = new Pagination($qs);
+        $pager = new Pagination($this->getQuerySet($model));
         $children = $pager->paginate();
         return $this->render($this->getView($model), [
             'model' => $model,
             'children' => $children,
-            'pager' => $pager
+            'pager' => $pager,
+            'hasComments' => $model->hasField('comments')
         ]);
+    }
+
+    /**
+     * @param Page $model
+     * @return \Mindy\Orm\QuerySet
+     */
+    protected function getQuerySet(Page $model)
+    {
+        $qs = $model->objects()->published()->children();
+        if ($model->sorting) {
+            $qs = $qs->order([$model->sorting]);
+        }
+        return $qs;
     }
 }

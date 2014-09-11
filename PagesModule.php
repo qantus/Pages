@@ -7,6 +7,15 @@ use Mindy\Base\Module;
 
 class PagesModule extends Module
 {
+    public $enableComments;
+
+    public function init()
+    {
+        if($this->enableComments === null) {
+            $this->enableComments = Mindy::app()->hasModule('Comments');
+        }
+    }
+
     public function getVersion()
     {
         return '1.0';

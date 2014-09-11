@@ -6,4 +6,8 @@
 
 {%- block content -%}
 {{ model.content|raw }}
+
+{% if hasComments %}
+    {{ render_comments("pages/_comments.html", model.comments) }}
+{% endif %}
 {%- endblock -%}
