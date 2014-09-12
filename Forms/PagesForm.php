@@ -20,7 +20,9 @@ class PagesForm extends ModelForm
     {
         return [
             PagesModule::t('Main information') => [
-                'name', 'url', 'content_short', 'content', 'parent', 'is_index', 'is_published', 'published_time', 'file', 'files', 'status'
+                'name', 'url', 'content_short', 'content',
+                'parent', 'is_index', 'is_published', 'published_at', 'file',
+                'enabled_comments'
             ],
             PagesModule::t('Display settings') => [
                 'view', 'view_children', 'sorting'
