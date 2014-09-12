@@ -4,6 +4,7 @@ namespace Modules\Pages\Components;
 
 
 use Mindy\Base\Exception\Exception;
+use Mindy\Utils\RenderTrait;
 use Modules\Pages\Models\Block;
 
 /**
@@ -19,9 +20,9 @@ use Modules\Pages\Models\Block;
 
 class BlockHelper 
 {
-    public static function render($slug)
+    public static function render($slug, $attribute = 'content')
     {
         $model = Block::objects()->filter(['slug' => $slug])->get();
-        return $model === null ? null : $model->content;
+        return $model === null ? null : $model->{$attribute};
     }
 }
