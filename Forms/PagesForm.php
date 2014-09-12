@@ -21,8 +21,10 @@ class PagesForm extends ModelForm
         return [
             PagesModule::t('Main information') => [
                 'name', 'url', 'content_short', 'content',
-                'parent', 'is_index', 'is_published', 'published_at', 'file',
-                'enabled_comments'
+                'parent', 'is_index', 'is_published', 'published_at', 'file'
+            ],
+            PagesModule::t('Comments settings') => [
+                'enable_comments', 'enable_comments_form'
             ],
             PagesModule::t('Display settings') => [
                 'view', 'view_children', 'sorting'

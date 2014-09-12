@@ -109,6 +109,11 @@ class Page extends TreeModel
                 'verboseName' => PagesModule::t('Enable comments'),
                 'default' => true
             ],
+            'enable_comments_form' => [
+                'class' => BooleanField::className(),
+                'verboseName' => PagesModule::t('Enable comments form'),
+                'default' => true
+            ],
             'sorting' => [
                 'class' => CharField::className(),
                 'null' => true,
