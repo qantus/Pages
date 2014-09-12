@@ -24,6 +24,7 @@ class Block extends Model
     {
         return [
             'slug' => ['class' => CharField::className()],
+            'name' => ['class' => CharField::className()],
             'content' => ['class' => TextField::className()],
         ];
     }

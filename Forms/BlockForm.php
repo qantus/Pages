@@ -13,6 +13,7 @@ class BlockForm extends ModelForm
     {
         return [
             'slug' => ['class' => TextField::className()],
+            'name' => ['class' => TextField::className()],
             'content' => ['class' => WysiwygField::className()],
         ];
 
