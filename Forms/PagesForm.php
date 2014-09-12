@@ -14,6 +14,8 @@ use Modules\Pages\PagesModule;
  */
 class PagesForm extends ModelForm
 {
+    public $exclude = ['comments'];
+
     public function getFieldsets()
     {
         return [
