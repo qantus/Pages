@@ -10,7 +10,6 @@ use Mindy\Orm\Fields\CharField;
 use Mindy\Orm\Fields\DateTimeField;
 use Mindy\Orm\Fields\HasManyField;
 use Mindy\Orm\Fields\ImageField;
-use Mindy\Orm\Fields\IntField;
 use Mindy\Orm\Fields\TextField;
 use Mindy\Orm\TreeModel;
 use Modules\Pages\PagesModule;
@@ -128,7 +127,7 @@ class Page extends TreeModel
         ]);
 
         $app = Mindy::app();
-        if($app->hasModule('Comments') && $app->getModule('Pages')->enableComments) {
+        if ($app->hasModule('Comments') && $app->getModule('Pages')->enableComments) {
             $fields['comments'] = [
                 'class' => HasManyField::className(),
                 'modelClass' => Comment::className()
@@ -183,11 +182,12 @@ class Page extends TreeModel
      */
     public function getViews()
     {
-        $path_app = Alias::get('application.templates.pages');
-        $path_module = Alias::get('pages.templates.pages');
+        $finder = Mindy::app()->getComponent('finder');
+        $pathApp = Alias::get($finder->theme ? 'application.themes.' . $finder->theme . '.templates.pages' : 'application.templates.pages');
+        $pathModule = Alias::get('pages.templates.pages');
 
-        $templates_app = $this->getTemplates($path_app);
-        $templates_module = $this->getTemplates($path_module);
+        $templates_app = $this->getTemplates($pathApp);
+        $templates_module = $this->getTemplates($pathModule);
 
         $templates = [null => ''];
         foreach ($templates_app as $template) {
