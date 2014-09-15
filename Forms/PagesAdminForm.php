@@ -20,7 +20,6 @@ use Modules\Meta\Forms\MetaInlineForm;
 
 class PagesAdminForm extends ManagedForm
 {
-
     /**
      * @return string form class
      */

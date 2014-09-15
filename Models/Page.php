@@ -166,8 +166,12 @@ class Page extends TreeModel
     public function getView()
     {
         if (empty($this->view)) {
-            //Если представления не найдены берем стандартные
-            $this->view = $this->getIsLeaf() ? 'page.html' : 'pageset.html';
+            // Если представления не найдены берем стандартные
+            if ($parent = $this->objects()->ancestors()->filter(['view__isnull' => false])->limit(1)->get()) {
+                $this->view = $parent->view;
+            } else {
+                $this->view = $this->getIsLeaf() ? 'page.html' : 'pageset.html';
+            }
         }
 
         return $this->view;
@@ -185,7 +189,7 @@ class Page extends TreeModel
         $templates_app = $this->getTemplates($path_app);
         $templates_module = $this->getTemplates($path_module);
 
-        $templates = ['' => ''];
+        $templates = [null => ''];
         foreach ($templates_app as $template) {
             $templates[$template] = $template;
         }
