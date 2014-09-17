@@ -8,6 +8,7 @@ use Mindy\Base\Module;
 class PagesModule extends Module
 {
     public $enableComments;
+    public $commentForm;
 
     public function init()
     {
