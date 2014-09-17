@@ -3,6 +3,7 @@
 namespace Modules\Pages\Forms;
 
 use Mindy\Form\Fields\DropDownField;
+use Mindy\Form\Fields\TextAreaField;
 use Mindy\Form\Fields\WysiwygField;
 use Mindy\Form\ModelForm;
 use Modules\Core\Fields\Form\TimeStampField;
@@ -42,7 +43,7 @@ class PagesForm extends ModelForm
                 'label' => PagesModule::t('Published time')
             ],
             'content_short' => [
-                'class' => WysiwygField::className(),
+                'class' => TextAreaField::className(),
                 'label' => PagesModule::t('Short content')
             ],
             'content' => [
