@@ -111,6 +111,8 @@ return array (
   'Text block' => 'Текстовый блок',
   'Text blocks' => 'Текстовые блоки',
   'Comments' => 'Комментарии',
+    'comments' => 'комментарии',
+    'comment' => 'комментарий',
   'Page [[{url}|{name}]] was updated' => 'Страница [[{url}|{name}]] обновлена',
   'Page [[{url}|{name}]] was created' => 'Страница [[{url}|{name}]] создана',
 );

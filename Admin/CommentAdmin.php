@@ -19,6 +19,10 @@ use Modules\Pages\Models\Comment;
 
 class CommentAdmin extends BaseCommentAdmin
 {
+    public function getColumns()
+    {
+        return ['id', 'username', 'email', 'created_at', 'is_published'];
+    }
     /**
      * @return \Mindy\Orm\Model
      */
