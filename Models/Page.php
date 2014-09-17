@@ -166,8 +166,9 @@ class Page extends TreeModel
     {
         if (empty($this->view)) {
             // Если представления не найдены берем стандартные
-            if ($parent = $this->objects()->ancestors()->filter(['view__isnull' => false])->limit(1)->get()) {
-                $this->view = $parent->view;
+            $parent = $this->objects()->ancestors()->filter(['view_children__isnull' => false])->exclude(['view_children' => ''])->limit(1)->get();
+            if ($parent) {
+                $this->view = $parent->view_children;
             } else {
                 $this->view = $this->getIsLeaf() ? 'page.html' : 'pageset.html';
             }
