@@ -12,9 +12,20 @@ class PagesModule extends Module
 
     public function init()
     {
-        if($this->enableComments === null) {
+        if ($this->enableComments === null) {
             $this->enableComments = Mindy::app()->hasModule('Comments');
         }
+    }
+
+    public static function preConfigure()
+    {
+        $tpl = Mindy::app()->template;
+        $tpl->addHelper('get_block', ['\Modules\Pages\Components\BlockHelper', 'render']);
+        $tpl->addHelper('get_pages', function ($parentId, $limit = 10, $offset = 0) {
+            return \Modules\Pages\Models\Page::objects()->filter([
+                'parent_id' => $parentId
+            ])->limit($limit)->offset($offset)->all();
+        });
     }
 
     public function getVersion()
