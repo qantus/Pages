@@ -35,6 +35,12 @@ class PageSitemap extends Sitemap
         return $this->formatLastMod($date);
     }
 
+    public function getQuerySet()
+    {
+        $qs = parent::getQuerySet();
+        return $qs->order(['root', 'lft']);
+    }
+
     public function getLoc($data)
     {
         $url = $data['url'];
