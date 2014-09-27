@@ -17,6 +17,12 @@ class PagesForm extends ModelForm
 {
     public $exclude = ['comments'];
 
+    public function __construct(array $config = [])
+    {
+        $this->configure($config);
+        $this->init();
+    }
+
     public function getFieldsets()
     {
         return [
