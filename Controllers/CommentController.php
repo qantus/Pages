@@ -43,16 +43,19 @@ class CommentController extends BaseCommentController
         return $model;
     }
 
+    public function getTemplate($name)
+    {
+        return 'pages/_comments.html';
+    }
+
     public function actionView($url)
     {
-        $model = $this->fetchModel($url);
-        $this->internalActionList($model);
+        $this->internalActionList($this->fetchModel($url));
     }
 
     public function actionSave($url)
     {
-        $model = $this->fetchModel($url);
-        $this->internalActionSave($model);
+        $this->internalActionSave($this->fetchModel($url));
     }
 
     /**

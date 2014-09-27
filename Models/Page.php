@@ -12,6 +12,7 @@ use Mindy\Orm\Fields\HasManyField;
 use Mindy\Orm\Fields\ImageField;
 use Mindy\Orm\Fields\TextField;
 use Mindy\Orm\TreeModel;
+use Modules\Meta\Components\MetaTrait;
 use Modules\Pages\PagesModule;
 use Modules\User\Components\UserActionsTrait;
 use RecursiveDirectoryIterator;
@@ -28,6 +29,12 @@ class Page extends TreeModel
 
     const PAGE = 0;
     const PAGESET = 1;
+
+    public $metaConfig = [
+        'title' => 'name',
+        'keywords' => 'content',
+        'description' => 'content_short'
+    ];
 
     /**
      * Prefix for cache

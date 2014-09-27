@@ -5,7 +5,7 @@ return [
         'name' => 'comment_send',
         'callback' => '\Modules\Pages\Controllers\CommentController:save',
     ],
-    '{url:.*}/c' => [
+    '{url:.*}/c/' => [
         'name' => 'comment_list',
         'callback' => '\Modules\Pages\Controllers\CommentController:view',
     ],

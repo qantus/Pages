@@ -32,6 +32,7 @@ class PageController extends CoreController
             $this->error(404);
         }
 
+        $this->setCanonical($model);
         $this->fetchBreadrumbs($model);
 
         echo $this->actionInternal($model);
