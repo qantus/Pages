@@ -83,7 +83,6 @@ class PageTest extends BaseTestCase
         $this->assertEquals('', $model->content_short);
         $this->assertInstanceOf('\Mindy\Orm\Fields\ImageField', $model->file);
         $this->assertEquals(null, $model->published_at);
-        $this->assertEquals(null, $model->position);
         $this->assertEquals(null, $model->view);
         $this->assertEquals(null, $model->view_children);
         $this->assertEquals(null, $model->sorting);

@@ -9,11 +9,9 @@ use Modules\Pages\PagesModule;
 
 class PageAdmin extends NestedAdmin
 {
-    public $sortingColumn = 'position';
-
     public function getColumns()
     {
-        return ['id', 'name', 'position', 'published_at'];
+        return ['id', 'name', 'published_at'];
     }
 
     public function getSearchFields()
