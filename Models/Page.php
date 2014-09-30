@@ -267,12 +267,4 @@ class Page extends TreeModel
 
         return parent::save($fields);
     }
-
-    public function afterSave($owner, $isNew)
-    {
-        $this->recordAction(PagesModule::t('Page [[{url}|{name}]] was ' . ($isNew ? 'created' : 'updated'), [
-            '{url}' => $this->getAbsoluteUrl(),
-            '{name}' => $this->name
-        ]));
-    }
 }
