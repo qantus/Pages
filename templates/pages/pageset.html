@@ -23,7 +23,7 @@
             {% endfor %}
 
             <div class="pager-holder">
-                {{ pager.render() }}
+                {{ pager.render()|safe }}
             </div>
         </div>
     </div>
