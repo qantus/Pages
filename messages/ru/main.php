@@ -115,4 +115,5 @@ return array (
   'comment' => 'комментарий',
   'Page [[{url}|{name}]] was updated' => 'Страница [[{url}|{name}]] обновлена',
   'Page [[{url}|{name}]] was created' => 'Страница [[{url}|{name}]] создана',
+  'Published at' => 'Опубликовано'
 );

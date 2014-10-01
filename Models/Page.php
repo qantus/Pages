@@ -90,6 +90,7 @@ class Page extends TreeModel
             ],
             'published_at' => [
                 'class' => DateTimeField::className(),
+                'verboseName' => PagesModule::t('Published at'),
                 'null' => true
             ],
             'view' => [
