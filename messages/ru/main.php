@@ -17,9 +17,12 @@ return array (
   'View' => 'Представление',
   'View for children pages' => 'Представление для дочерних страниц',
   'View children' => 'Дочернее представление',
+  'Slug' => 'Ключ',
+  'Name block' => 'Наименование',
   'Name' => 'Имя страницы',
   'Url' => 'Ссылка',
   'File' => 'Файл',
+  'Published at' => 'Опубликовано',
   'Is index' => 'Главная страница',
   'Is published' => 'Опубликовано',
   'Enable comments' => 'Включить комментарии',
@@ -115,5 +118,4 @@ return array (
   'comment' => 'комментарий',
   'Page [[{url}|{name}]] was updated' => 'Страница [[{url}|{name}]] обновлена',
   'Page [[{url}|{name}]] was created' => 'Страница [[{url}|{name}]] создана',
-  'Published at' => 'Опубликовано'
 );

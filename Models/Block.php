@@ -5,6 +5,7 @@ namespace Modules\Pages\Models;
 use Mindy\Orm\Fields\CharField;
 use Mindy\Orm\Fields\TextField;
 use Mindy\Orm\Model;
+use Modules\Pages\PagesModule;
 
 /**
  *
@@ -23,9 +24,18 @@ class Block extends Model
     public static function getFields()
     {
         return [
-            'slug' => ['class' => CharField::className()],
-            'name' => ['class' => CharField::className()],
-            'content' => ['class' => TextField::className()],
+            'slug' => [
+                'class' => CharField::className(),
+                'verboseName' => PagesModule::t('Slug')
+            ],
+            'name' => [
+                'class' => CharField::className(),
+                'verboseName' => PagesModule::t('Name block')
+            ],
+            'content' => [
+                'class' => TextField::className(),
+                'verboseName' => PagesModule::t('Content')
+            ],
         ];
     }
 }
