@@ -2,14 +2,12 @@
 
 namespace Modules\Pages\Components;
 
-
-use Mindy\Base\Exception\Exception;
 use Mindy\Utils\RenderTrait;
 use Modules\Pages\Models\Block;
 
 /**
  * All rights reserved.
- * 
+ *
  * @author Falaleev Maxim
  * @email max@studio107.ru
  * @version 1.0
@@ -17,8 +15,7 @@ use Modules\Pages\Models\Block;
  * @site http://studio107.ru
  * @date 14/05/14.05.2014 16:34
  */
-
-class BlockHelper 
+class BlockHelper
 {
     public static function render($slug, $attribute = 'content')
     {
