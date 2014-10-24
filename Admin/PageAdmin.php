@@ -3,7 +3,7 @@
 namespace Modules\Pages\Admin;
 
 use Modules\Admin\Components\NestedAdmin;
-use Modules\Pages\Forms\PagesAdminForm;
+use Modules\Pages\Forms\PagesForm;
 use Modules\Pages\Models\Page;
 use Modules\Pages\PagesModule;
 
@@ -21,7 +21,7 @@ class PageAdmin extends NestedAdmin
 
     public function getCreateForm()
     {
-        return PagesAdminForm::className();
+        return PagesForm::className();
     }
 
     public function getModel()

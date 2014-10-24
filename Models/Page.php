@@ -139,7 +139,8 @@ class Page extends TreeModel
         if ($app->hasModule('Comments') && $app->getModule('Pages')->enableComments) {
             $fields['comments'] = [
                 'class' => HasManyField::className(),
-                'modelClass' => Comment::className()
+                'modelClass' => Comment::className(),
+                'editable' => false,
             ];
         }
         return $fields;

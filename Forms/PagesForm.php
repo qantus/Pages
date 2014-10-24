@@ -7,6 +7,7 @@ use Mindy\Form\Fields\TextAreaField;
 use Mindy\Form\Fields\WysiwygField;
 use Mindy\Form\ModelForm;
 use Modules\Core\Fields\Form\TimeStampField;
+use Modules\Meta\Forms\MetaInlineForm;
 use Modules\Pages\Models\Page;
 use Modules\Pages\PagesModule;
 
@@ -16,12 +17,6 @@ use Modules\Pages\PagesModule;
 class PagesForm extends ModelForm
 {
     public $exclude = ['comments'];
-
-    public function __construct(array $config = [])
-    {
-        $this->configure($config);
-        $this->init();
-    }
 
     public function getFieldsets()
     {
@@ -89,6 +84,13 @@ class PagesForm extends ModelForm
             ],
         ];
 
+    }
+
+    public function getInlines()
+    {
+        return [
+            ['meta' => MetaInlineForm::className()]
+        ];
     }
 
     public function getModel()

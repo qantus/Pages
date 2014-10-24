@@ -3,7 +3,7 @@
 namespace Modules\Pages\Tests;
 
 use Mindy\Base\Mindy;
-use Mindy\Base\Tests\BaseTestCase;
+use Mindy\Tests\DatabaseTestCase;
 use Modules\Pages\Controllers\PageController;
 use Modules\Pages\Models\Page;
 use Modules\Pages\Sitemap\PageSitemap;
@@ -18,7 +18,7 @@ use Modules\Pages\Sitemap\PageSitemap;
  * @site http://studio107.ru
  * @date 19/08/14.08.2014 13:05
  */
-class PageTest extends BaseTestCase
+class PagesTest extends DatabaseTestCase
 {
     protected function getModels()
     {
@@ -29,7 +29,7 @@ class PageTest extends BaseTestCase
     {
         $this->assertEquals('{{%pages_page}}', Page::tableName());
 
-        $model = new Page(['name' => 1]);
+        $model = new Page(['name' => 1, 'is_published' => false]);
         $model->save();
 
         $this->assertEmptyModel($model);
@@ -37,7 +37,7 @@ class PageTest extends BaseTestCase
         $this->assertEquals('/1', $model->url);
         $this->assertEquals(null, $model->parent);
 
-        $children = new Page(['name' => 2, 'parent' => $model]);
+        $children = new Page(['name' => 2, 'parent' => $model, 'is_published' => false]);
         $children->save();
 
         $this->assertEmptyModel($model);
@@ -58,7 +58,7 @@ class PageTest extends BaseTestCase
 
         $model = Page::objects()->filter(['pk' => 1])->get();
 
-        $newRoot = new Page(['name' => 3]);
+        $newRoot = new Page(['name' => 3, 'is_published' => false]);
         $newRoot->save();
 
         $model->parent = $newRoot;
@@ -82,10 +82,10 @@ class PageTest extends BaseTestCase
         $this->assertEquals('', $model->content);
         $this->assertEquals('', $model->content_short);
         $this->assertInstanceOf('\Mindy\Orm\Fields\ImageField', $model->file);
-        $this->assertEquals(null, $model->published_at);
-        $this->assertEquals(null, $model->view);
-        $this->assertEquals(null, $model->view_children);
-        $this->assertEquals(null, $model->sorting);
+        $this->assertNull($model->published_at);
+        $this->assertNull($model->view);
+        $this->assertNull($model->view_children);
+        $this->assertNull($model->sorting);
         $this->assertEquals(false, $model->is_index);
         $this->assertEquals(false, $model->is_published);
     }
@@ -95,19 +95,19 @@ class PageTest extends BaseTestCase
         $url = Mindy::app()->urlManager;
 
         // Test actions
-        $this->assertEquals('/foo/bar/', $url->reverse('page.view', ['/foo/bar/']));
-        $this->assertEquals('', $url->reverse('page.view', ['']));
-        $this->assertEquals('', $url->reverse('page.view', [null]));
+        $this->assertEquals('/pages/foo/bar/', $url->reverse('page.view', ['/foo/bar/']));
+        $this->assertEquals('/pages', $url->reverse('page.view', ['']));
+        $this->assertEquals('/pages', $url->reverse('page.view', [null]));
 
         // Test models
         $model = new Page(['name' => '123']);
         $this->assertTrue($model->save());
-        $this->assertEquals('/123', $model->url);
-        $this->assertEquals('/123', $model->getAbsoluteUrl());
+        $this->assertEquals('/pages/123', $model->url);
+        $this->assertEquals('/pages/123', $model->getAbsoluteUrl());
 
         $model = new Page(['name' => '123', 'is_index' => true]);
         $this->assertTrue($model->save());
-        $this->assertEquals('/', $model->getAbsoluteUrl());
+        $this->assertEquals('/pages/', $model->getAbsoluteUrl());
     }
 
     /**
@@ -116,23 +116,23 @@ class PageTest extends BaseTestCase
     protected function getController()
     {
         $module = Mindy::app()->getModule('Pages');
-        return new PageController('page', $module);
+        return new PageController('page', $module, Mindy::app()->request);
     }
 
     public function testActions()
     {
         $model = new Page(['name' => '123', 'is_index' => true, 'is_published' => true]);
         $this->assertTrue($model->save());
-        $this->assertEquals('/', $model->getAbsoluteUrl());
+        $this->assertEquals('/pages/123', $model->getAbsoluteUrl());
 
         $c = $this->getController();
 
-        $this->assertAction($c, function($c) {
+        $this->assertAction($c, function ($c) {
             /** @var PageController $c */
             $c->actionView();
         }, '<h1>123</h1>');
 
-        $this->assertAction($c, function($c) {
+        $this->assertAction($c, function ($c) {
             /** @var PageController $c */
             $c->actionView('/123');
         }, '<h1>123</h1>');
@@ -147,10 +147,10 @@ class PageTest extends BaseTestCase
 
         $model = new Page(['name' => '123', 'is_index' => true, 'is_published' => true]);
         $this->assertTrue($model->save());
-        $this->assertEquals('/', $model->getAbsoluteUrl());
+        $this->assertEquals('/pages/123', $model->getAbsoluteUrl());
 
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"><url><loc>/</loc><lastmod>'.date(DATE_W3C, strtotime($model->updated_at ? $model->updated_at : $model->created_at)).'</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"><url><loc>/</loc><lastmod>' . date(DATE_W3C, strtotime($model->updated_at ? $model->updated_at : $model->created_at)) . '</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url></urlset>
 ', $sitemap->render(false));
     }
 }
