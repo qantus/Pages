@@ -112,16 +112,6 @@ class Page extends TreeModel
                 'verboseName' => PagesModule::t('Is published'),
                 'default' => true
             ],
-            'enable_comments' => [
-                'class' => BooleanField::className(),
-                'verboseName' => PagesModule::t('Enable comments'),
-                'default' => true
-            ],
-            'enable_comments_form' => [
-                'class' => BooleanField::className(),
-                'verboseName' => PagesModule::t('Enable comments form'),
-                'default' => true
-            ],
             'sorting' => [
                 'class' => CharField::className(),
                 'null' => true,
@@ -137,11 +127,23 @@ class Page extends TreeModel
 
         $app = Mindy::app();
         if ($app->hasModule('Comments') && $app->getModule('Pages')->enableComments) {
-            $fields['comments'] = [
-                'class' => HasManyField::className(),
-                'modelClass' => Comment::className(),
-                'editable' => false,
-            ];
+            $fields = array_merge($fields, [
+                'enable_comments' => [
+                    'class' => BooleanField::className(),
+                    'verboseName' => PagesModule::t('Enable comments'),
+                    'default' => true
+                ],
+                'enable_comments_form' => [
+                    'class' => BooleanField::className(),
+                    'verboseName' => PagesModule::t('Enable comments form'),
+                    'default' => true
+                ],
+                'comments' => [
+                    'class' => HasManyField::className(),
+                    'modelClass' => Comment::className(),
+                    'editable' => false,
+                ]
+            ]);
         }
         return $fields;
     }
