@@ -42,7 +42,7 @@ class PageController extends CoreController
     {
         if(!$model->is_index) {
             /** @var Page[] $pages */
-            $pages = $model->tree()->ancestors()->order('level')->all();
+            $pages = $model->tree()->ancestors()->order(['level'])->all();
             foreach ($pages as $page) {
                 $this->addTitle($page->name);
                 $this->addBreadcrumb($page->name, $page->getAbsoluteUrl());
