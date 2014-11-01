@@ -8,6 +8,6 @@
 {{ model.content|raw }}
 
 {% if hasComments %}
-    {{ render_comments("pages/_comments.html", model.comments) }}
+    {{ render_comments(request, "pages/_comments.html", model, model.comments)|safe }}
 {% endif %}
 {%- endblock -%}
