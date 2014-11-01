@@ -8,8 +8,6 @@ use Mindy\Orm\Model;
 use Modules\Pages\PagesModule;
 
 /**
- *
- *
  * All rights reserved.
  *
  * @author Falaleev Maxim
@@ -18,6 +16,11 @@ use Modules\Pages\PagesModule;
  * @company Studio107
  * @site http://studio107.ru
  * @date 18/04/14.04.2014 20:08
+ */
+
+/**
+ * Class Block
+ * @package Modules\Pages
  */
 class Block extends Model
 {

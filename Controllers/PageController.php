@@ -8,6 +8,10 @@ use Modules\Core\Controllers\CoreController;
 use Modules\Feedback\Forms\HelpForm;
 use Modules\Pages\Models\Page;
 
+/**
+ * Class PageController
+ * @package Modules\Pages
+ */
 class PageController extends CoreController
 {
     public $defaultAction = 'view';

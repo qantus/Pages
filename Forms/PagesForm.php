@@ -14,6 +14,7 @@ use Modules\Pages\PagesModule;
 
 /**
  * Class PagesForm
+ * @package Modules\Pages
  */
 class PagesForm extends ModelForm
 {

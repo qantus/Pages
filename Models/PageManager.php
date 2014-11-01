@@ -14,9 +14,12 @@
 
 namespace Modules\Pages\Models;
 
-
 use Mindy\Orm\TreeManager;
 
+/**
+ * Class PageManager
+ * @package Modules\Pages
+ */
 class PageManager extends TreeManager
 {
     /**

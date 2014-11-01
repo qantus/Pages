@@ -21,7 +21,7 @@ use Modules\Pages\Models\Page;
 /**
  * @DEPRECATED
  * Class PagesPatterns
- * @package Modules\Pages\Components
+ * @package Modules\Pages
  */
 class PagesPatterns extends CustomPatterns
 {

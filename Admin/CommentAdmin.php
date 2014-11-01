@@ -17,6 +17,10 @@ namespace Modules\Pages\Admin;
 use Modules\Comments\Admin\BaseCommentAdmin;
 use Modules\Pages\Models\Comment;
 
+/**
+ * Class CommentAdmin
+ * @package Modules\Pages
+ */
 class CommentAdmin extends BaseCommentAdmin
 {
     public function getColumns()

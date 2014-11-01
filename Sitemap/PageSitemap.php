@@ -17,6 +17,10 @@ use Mindy\Base\Mindy;
 use Modules\Pages\Models\Page;
 use Modules\Sitemap\Components\Sitemap;
 
+/**
+ * Class PageSitemap
+ * @package Modules\Pages
+ */
 class PageSitemap extends Sitemap
 {
     public function getModelClass()

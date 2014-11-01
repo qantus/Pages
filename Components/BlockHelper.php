@@ -15,6 +15,11 @@ use Modules\Pages\Models\Block;
  * @site http://studio107.ru
  * @date 14/05/14.05.2014 16:34
  */
+
+/**
+ * Class BlockHelper
+ * @package Modules\Pages
+ */
 class BlockHelper
 {
     public static function render($slug, $attribute = 'content')

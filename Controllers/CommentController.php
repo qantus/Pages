@@ -21,6 +21,10 @@ use Modules\Comments\Models\BaseComment;
 use Modules\Pages\Models\Comment;
 use Modules\Pages\Models\Page;
 
+/**
+ * Class CommentController
+ * @package Modules\Pages
+ */
 class CommentController extends BaseCommentController
 {
     public $toLink = 'page_id';
@@ -43,7 +47,7 @@ class CommentController extends BaseCommentController
         return $model;
     }
 
-    public function getTemplate($name)
+    public function getTemplate()
     {
         return 'pages/_comments.html';
     }

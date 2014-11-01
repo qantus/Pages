@@ -19,7 +19,7 @@ use Modules\Comments\Models\BaseComment;
 
 /**
  * Class Comment
- * @package Modules\Comments
+ * @package Modules\Pages
  * @method static \Modules\Comments\Models\CommentManager objects($instance = null)
  */
 class Comment extends BaseComment

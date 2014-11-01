@@ -5,6 +5,10 @@ namespace Modules\Pages;
 use Mindy\Base\Mindy;
 use Mindy\Base\Module;
 
+/**
+ * Class PagesModule
+ * @package Modules\Pages
+ */
 class PagesModule extends Module
 {
     public $enableComments;

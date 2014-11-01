@@ -7,6 +7,10 @@ use Modules\Pages\Forms\BlockForm;
 use Modules\Pages\Models\Block;
 use Modules\Pages\PagesModule;
 
+/**
+ * Class BlockAdmin
+ * @package Modules\User
+ */
 class BlockAdmin extends ModelAdmin
 {
     public function getColumns()
