@@ -58,7 +58,7 @@ class PageController extends CoreController
 
     public function actionInternal(Page $model)
     {
-        $pager = new Pagination($this->getQuerySet($model));
+        $pager = new Pagination($model->getChildrenQuerySet());
         $children = $pager->paginate();
         return $this->render($this->getView($model), [
             'model' => $model,
@@ -66,18 +66,5 @@ class PageController extends CoreController
             'pager' => $pager,
             'hasComments' => $model->hasField('comments')
         ]);
-    }
-
-    /**
-     * @param Page $model
-     * @return \Mindy\Orm\QuerySet
-     */
-    protected function getQuerySet(Page $model)
-    {
-        $qs = $model->objects()->published()->children();
-        if ($model->sorting) {
-            $qs = $qs->order([$model->sorting]);
-        }
-        return $qs;
     }
 }

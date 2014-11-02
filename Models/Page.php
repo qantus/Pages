@@ -88,11 +88,6 @@ class Page extends TreeModel
                 'class' => DateTimeField::className(),
                 'autoNow' => true
             ],
-            'published_at' => [
-                'class' => DateTimeField::className(),
-                'verboseName' => PagesModule::t('Published at'),
-                'null' => true
-            ],
             'view' => [
                 'class' => CharField::className(),
                 'null' => true,
@@ -261,14 +256,22 @@ class Page extends TreeModel
 
     public function save(array $fields = [])
     {
-        if ($this->is_published) {
-            $this->published_at = time();
-        }
-
         if ($this->is_index) {
             $this->objects()->update(['is_index' => false]);
         }
 
         return parent::save($fields);
+    }
+
+    /**
+     * @return \Mindy\Orm\QuerySet
+     */
+    public function getChildrenQuerySet()
+    {
+        $qs = $this->objects()->published()->children();
+        if ($this->sorting) {
+            $qs = $qs->order([$this->sorting]);
+        }
+        return $qs;
     }
 }
