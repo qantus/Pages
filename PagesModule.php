@@ -28,7 +28,7 @@ class PagesModule extends Module
         $tpl->addHelper('get_pages', function ($parentId, $limit = 10, $offset = 0) {
             return \Modules\Pages\Models\Page::objects()->filter([
                 'parent_id' => $parentId
-            ])->limit($limit)->offset($offset)->all();
+            ])->limit($limit)->offset($offset);
         });
     }
 
