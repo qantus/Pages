@@ -15,7 +15,7 @@ class PageAdmin extends NestedAdmin
 {
     public function getColumns()
     {
-        return ['id', 'name', 'published_at'];
+        return ['id', 'name'];
     }
 
     public function getSearchFields()
