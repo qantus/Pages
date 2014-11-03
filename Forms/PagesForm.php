@@ -56,26 +56,6 @@ class PagesForm extends ModelForm
                 'class' => WysiwygField::className(),
                 'label' => PagesModule::t('Content')
             ],
-            'parent' => [
-                'class' => DropDownField::className(),
-                'choices' => function () use ($model) {
-                        $list = ['' => ''];
-
-                        $qs = $model->tree()->order(['root', 'lft']);
-                        if ($model->getIsNewRecord()) {
-                            $parents = $qs->all();
-                        } else {
-                            $parents = $qs->exclude(['pk' => $model->pk])->all();
-                        }
-                        foreach ($parents as $model) {
-                            $level = $model->level ? $model->level - 1 : $model->level;
-                            $list[$model->pk] = $level ? str_repeat("..", $level) . ' ' . $model->name : $model->name;
-                        }
-
-                        return $list;
-                    },
-                'label' => PagesModule::t('Parent')
-            ],
             'view' => [
                 'class' => DropDownField::className(),
                 'choices' => $model->getViews(),
@@ -88,7 +68,6 @@ class PagesForm extends ModelForm
                 'label' => PagesModule::t('View children')
             ],
         ];
-
     }
 
     public function getInlines()
