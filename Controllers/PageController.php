@@ -5,7 +5,6 @@ namespace Modules\Pages\Controllers;
 use Mindy\Base\Mindy;
 use Mindy\Pagination\Pagination;
 use Modules\Core\Controllers\CoreController;
-use Modules\Feedback\Forms\HelpForm;
 use Modules\Pages\Models\Page;
 
 /**
@@ -32,7 +31,12 @@ class PageController extends CoreController
 
         $cache = Mindy::app()->cache;
         $model = $cache->get('page_' . $url, $qs->get());
-        if($model === null) {
+        if ($model === null) {
+            $this->error(404);
+        }
+
+        //
+        if ($model->is_index && !empty($url)) {
             $this->error(404);
         }
 
@@ -44,7 +48,7 @@ class PageController extends CoreController
 
     protected function fetchBreadrumbs(Page $model)
     {
-        if(!$model->is_index) {
+        if (!$model->is_index) {
             /** @var Page[] $pages */
             $pages = $model->tree()->ancestors()->order(['level'])->all();
             foreach ($pages as $page) {
