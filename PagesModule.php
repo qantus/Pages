@@ -13,6 +13,8 @@ class PagesModule extends Module
 {
     public $enableComments;
     public $commentForm;
+    public $pagesModel = '\Modules\Pages\Models\Page';
+    public $pagesForm = '\Modules\Pages\Forms\PagesForm';
 
     public function init()
     {

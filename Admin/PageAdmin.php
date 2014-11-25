@@ -2,9 +2,8 @@
 
 namespace Modules\Pages\Admin;
 
+use Mindy\Base\Mindy;
 use Modules\Admin\Components\NestedAdmin;
-use Modules\Pages\Forms\PagesForm;
-use Modules\Pages\Models\Page;
 use Modules\Pages\PagesModule;
 
 /**
@@ -25,12 +24,13 @@ class PageAdmin extends NestedAdmin
 
     public function getCreateForm()
     {
-        return PagesForm::className();
+        return Mindy::app()->getModule('Pages')->pagesForm;
     }
 
     public function getModel()
     {
-        return new Page;
+        $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
+        return new $modelClass;
     }
 
     public function getVerboseName()
@@ -53,7 +53,8 @@ class PageAdmin extends NestedAdmin
 
     public function unpublish(array $data = [])
     {
-        Page::objects()->filter(['pk' => $data])->update(['is_published' => false]);
+        $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
+        $modelClass::objects()->filter(['pk' => $data])->update(['is_published' => false]);
 
         $this->redirect('admin.list', [
             'module' => $this->getModel()->getModuleName(),
@@ -63,7 +64,8 @@ class PageAdmin extends NestedAdmin
 
     public function publish(array $data = [])
     {
-        Page::objects()->filter(['pk' => $data])->update(['is_published' => true]);
+        $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
+        $modelClass::objects()->filter(['pk' => $data])->update(['is_published' => true]);
 
         $this->redirect('admin.list', [
             'module' => $this->getModel()->getModuleName(),

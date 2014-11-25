@@ -14,7 +14,6 @@
 namespace Modules\Pages\Sitemap;
 
 use Mindy\Base\Mindy;
-use Modules\Pages\Models\Page;
 use Modules\Sitemap\Components\Sitemap;
 
 /**
@@ -25,7 +24,7 @@ class PageSitemap extends Sitemap
 {
     public function getModelClass()
     {
-        return Page::className();
+        return Mindy::app()->getModule('Pages')->pagesModel;
     }
 
     public function getLastMod($data)

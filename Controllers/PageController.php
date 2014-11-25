@@ -26,8 +26,9 @@ class PageController extends CoreController
 
     public function actionView($url = null)
     {
+        $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
         $data = empty($url) ? ['is_index' => true] : ['url' => '/' . ltrim($url, '/')];
-        $qs = Page::objects()->published()->filter($data);
+        $qs = $modelClass::objects()->published()->filter($data);
 
         $cache = Mindy::app()->cache;
         $model = $cache->get('page_' . $url, $qs->get());

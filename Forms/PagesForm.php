@@ -9,7 +9,6 @@ use Mindy\Form\Fields\WysiwygField;
 use Mindy\Form\ModelForm;
 use Modules\Core\Fields\Form\TimeStampField;
 use Modules\Meta\Forms\MetaInlineForm;
-use Modules\Pages\Models\Page;
 use Modules\Pages\PagesModule;
 
 /**
@@ -79,6 +78,6 @@ class PagesForm extends ModelForm
 
     public function getModel()
     {
-        return Page::className();
+        return Mindy::app()->getModule('Pages')->pagesModel;
     }
 }
