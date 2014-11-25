@@ -15,7 +15,7 @@
 {% if model.enable_comments_form %}
     <form method="post" action="{% url 'page.comment_send' model.url %}?_next={{ request.path }}">
         {% csrf_token %}
-        {{ form }}
+        {{ form|safe }}
         <input type="submit" value="Отправить"/>
     </form>
 {% endif %}
