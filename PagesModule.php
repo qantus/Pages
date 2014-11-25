@@ -27,11 +27,7 @@ class PagesModule extends Module
     {
         $tpl = Mindy::app()->template;
         $tpl->addHelper('get_block', ['\Modules\Pages\Components\BlockHelper', 'render']);
-        $tpl->addHelper('get_pages', function ($parentId, $limit = 10, $offset = 0) {
-            return \Modules\Pages\Models\Page::objects()->filter([
-                'parent_id' => $parentId
-            ])->limit($limit)->offset($offset)->all();
-        });
+        $tpl->addHelper('get_pages', ['\Modules\Pages\Components\PagesHelper', 'getPages']);
     }
 
     public function getVersion()
