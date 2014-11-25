@@ -33,15 +33,15 @@ class PageAdmin extends NestedAdmin
         return new $modelClass;
     }
 
-    public function getVerboseName()
+    public function getNames($model = null)
     {
-        return PagesModule::t('page');
+        return [
+            PagesModule::t('Pages'),
+            PagesModule::t('Create page'),
+            PagesModule::t('Update page')
+        ];
     }
 
-    public function getVerboseNamePlural()
-    {
-        return PagesModule::t('pages');
-    }
 
     public function getActions()
     {
