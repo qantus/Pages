@@ -41,6 +41,9 @@ class PagesForm extends ModelForm
     public function getFields()
     {
         $model = $this->getInstance();
+        if ($model === null) {
+            $model = $this->getModel();
+        }
         return [
             'published_at' => [
                 'class' => TimeStampField::className(),
@@ -78,6 +81,7 @@ class PagesForm extends ModelForm
 
     public function getModel()
     {
-        return Mindy::app()->getModule('Pages')->pagesModel;
+        $cls = Mindy::app()->getModule('Pages')->pagesModel;
+        return new $cls;
     }
 }
