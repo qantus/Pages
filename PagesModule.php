@@ -37,7 +37,7 @@ class PagesModule extends Module
 
     public function getMenu()
     {
-        return [
+        $menu = [
             'name' => $this->getName(),
             'items' => [
                 [
@@ -48,11 +48,14 @@ class PagesModule extends Module
                     'name' => self::t('Text blocks'),
                     'adminClass' => 'BlockAdmin',
                 ],
-                [
-                    'name' => self::t('Comments'),
-                    'adminClass' => 'CommentAdmin',
-                ]
             ]
         ];
+        if (Mindy::app()->hasModule('Comments')) {
+            $menu['items'][] = [
+                'name' => self::t('Comments'),
+                'adminClass' => 'CommentAdmin',
+            ];
+        }
+        return $menu;
     }
 }
