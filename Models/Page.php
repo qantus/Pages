@@ -12,7 +12,7 @@ use Mindy\Orm\Fields\HasManyField;
 use Mindy\Orm\Fields\ImageField;
 use Mindy\Orm\Fields\TextField;
 use Mindy\Orm\TreeModel;
-use Modules\Meta\Components\MetaTrait;
+use Mindy\Query\ConnectionManager;
 use Modules\Pages\PagesModule;
 use Modules\User\Components\UserActionsTrait;
 use RecursiveDirectoryIterator;
@@ -82,11 +82,18 @@ class Page extends TreeModel
             ],
             'created_at' => [
                 'class' => DateTimeField::className(),
-                'autoNowAdd' => true
+                'autoNowAdd' => true,
+                'verboseName' => PagesModule::t("Created at")
             ],
             'updated_at' => [
                 'class' => DateTimeField::className(),
-                'autoNow' => true
+                'autoNow' => true,
+                'verboseName' => PagesModule::t("Updated at")
+            ],
+            'published_at' => [
+                'class' => DateTimeField::className(),
+                'null' => true,
+                'verboseName' => PagesModule::t("Published at")
             ],
             'view' => [
                 'class' => CharField::className(),
@@ -254,13 +261,20 @@ class Page extends TreeModel
         return $this->reverse('page.view', ['url' => $this->url]);
     }
 
-    public function save(array $fields = [])
+    /**
+     * @param $owner Page
+     * @param $isNew
+     */
+    public function beforeSave($owner, $isNew)
     {
-        if ($this->is_index) {
-            $this->objects()->update(['is_index' => false]);
+        if ($owner->is_index) {
+            $owner->objects()->update(['is_index' => false]);
         }
 
-        return parent::save($fields);
+        if ($this->is_published && empty($owner->published_at)) {
+            $queryBuilder = ConnectionManager::getDb()->getQueryBuilder();
+            $owner->published_at = $queryBuilder->convertToDateTime();
+        }
     }
 
     /**

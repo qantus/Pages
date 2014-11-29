@@ -45,11 +45,6 @@ class PagesForm extends ModelForm
             $model = $this->getModel();
         }
         return [
-            'published_at' => [
-                'class' => TimeStampField::className(),
-                'autoNow' => true,
-                'label' => PagesModule::t('Published time')
-            ],
             'content_short' => [
                 'class' => TextAreaField::className(),
                 'label' => PagesModule::t('Short content')
