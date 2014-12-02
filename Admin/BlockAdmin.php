@@ -2,9 +2,8 @@
 
 namespace Modules\Pages\Admin;
 
+use Mindy\Base\Mindy;
 use Modules\Admin\Components\ModelAdmin;
-use Modules\Pages\Forms\BlockForm;
-use Modules\Pages\Models\Block;
 use Modules\Pages\PagesModule;
 
 /**
@@ -20,12 +19,13 @@ class BlockAdmin extends ModelAdmin
 
     public function getCreateForm()
     {
-        return BlockForm::className();
+        return Mindy::app()->getModule('Pages')->blockForm;
     }
 
     public function getModel()
     {
-        return new Block;
+        $modelClass = Mindy::app()->getModule('Pages')->blockModel;
+        return new $modelClass;
     }
 
     public function getVerboseName()

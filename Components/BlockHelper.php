@@ -2,8 +2,8 @@
 
 namespace Modules\Pages\Components;
 
+use Mindy\Base\Mindy;
 use Mindy\Utils\RenderTrait;
-use Modules\Pages\Models\Block;
 
 /**
  * All rights reserved.
@@ -24,7 +24,14 @@ class BlockHelper
 {
     public static function render($slug, $attribute = 'content')
     {
-        $model = Block::objects()->filter(['slug' => $slug])->get();
+        $cls = Mindy::app()->getModule('Pages')->blockModel;
+        $model = $cls::objects()->filter(['slug' => $slug])->get();
         return $model === null ? null : $model->{$attribute};
+    }
+
+    public static function fetch($slug)
+    {
+        $cls = Mindy::app()->getModule('Pages')->blockModel;
+        return $cls::objects()->filter(['slug' => $slug])->get();
     }
 }

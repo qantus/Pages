@@ -15,6 +15,8 @@ class PagesModule extends Module
     public $commentForm;
     public $pagesModel = '\Modules\Pages\Models\Page';
     public $pagesForm = '\Modules\Pages\Forms\PagesForm';
+    public $blockModel = '\Modules\Pages\Models\Block';
+    public $blockForm = '\Modules\Pages\Forms\BlockForm';
 
     public function init()
     {
@@ -26,6 +28,7 @@ class PagesModule extends Module
     public static function preConfigure()
     {
         $tpl = Mindy::app()->template;
+        $tpl->addHelper('fetch_block', ['\Modules\Pages\Components\BlockHelper', 'fetch']);
         $tpl->addHelper('get_block', ['\Modules\Pages\Components\BlockHelper', 'render']);
         $tpl->addHelper('get_pages', ['\Modules\Pages\Components\PagesHelper', 'getPages']);
     }
