@@ -14,7 +14,7 @@ class BlockAdmin extends ModelAdmin
 {
     public function getColumns()
     {
-        return ['id', 'slug'];
+        return ['id', 'slug', 'name'];
     }
 
     public function getCreateForm()
