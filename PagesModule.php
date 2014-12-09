@@ -17,6 +17,16 @@ class PagesModule extends Module
     public $pagesForm = '\Modules\Pages\Forms\PagesForm';
     public $blockModel = '\Modules\Pages\Models\Block';
     public $blockForm = '\Modules\Pages\Forms\BlockForm';
+    public $sizes = [
+        'thumb' => [
+            160, 104,
+            'method' => 'adaptiveResizeFromTop',
+            'options' => ['jpeg_quality' => 5]
+        ],
+        'resize' => [
+            978
+        ],
+    ];
 
     public function init()
     {

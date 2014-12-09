@@ -43,6 +43,8 @@ class Page extends TreeModel
 
     public static function getFields()
     {
+        $sizes = Mindy::app()->getModule('Pages')->sizes;
+
         $fields = array_merge(parent::getFields(), [
             'name' => [
                 'class' => CharField::className(),
@@ -68,16 +70,7 @@ class Page extends TreeModel
             'file' => [
                 'class' => ImageField::className(),
                 'null' => true,
-                'sizes' => [
-                    'thumb' => [
-                        160, 104,
-                        'method' => 'adaptiveResizeFromTop',
-                        'options' => ['jpeg_quality' => 5]
-                    ],
-                    'resize' => [
-                        978
-                    ],
-                ],
+                'sizes' => $sizes,
                 'verboseName' => PagesModule::t('File'),
             ],
             'created_at' => [
