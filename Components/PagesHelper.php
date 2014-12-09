@@ -22,11 +22,11 @@ use Mindy\Utils\RenderTrait;
  */
 class PagesHelper
 {
-    public static function getPages($parentId, $limit = 10, $offset = 0)
+    public static function getPages($parentId, $limit = 10, $offset = 0, $order = [])
     {
         $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
         return $modelClass::objects()->filter([
             'parent_id' => $parentId
-        ])->limit($limit)->offset($offset)->all();
+        ])->limit($limit)->offset($offset)->order($order)->all();
     }
 }
