@@ -54,7 +54,7 @@ class PageAdmin extends NestedAdmin
     public function unpublish(array $data = [])
     {
         $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
-        $modelClass::objects()->filter(['pk' => $data])->update(['is_published' => false]);
+        $modelClass::objects()->filter(['pk' => $data['models']])->update(['is_published' => false]);
 
         $this->redirect('admin.list', [
             'module' => $this->getModel()->getModuleName(),
@@ -65,7 +65,7 @@ class PageAdmin extends NestedAdmin
     public function publish(array $data = [])
     {
         $modelClass = Mindy::app()->getModule('Pages')->pagesModel;
-        $modelClass::objects()->filter(['pk' => $data])->update(['is_published' => true]);
+        $modelClass::objects()->filter(['pk' => $data['models']])->update(['is_published' => true]);
 
         $this->redirect('admin.list', [
             'module' => $this->getModel()->getModuleName(),
