@@ -2,6 +2,7 @@
 
 namespace Modules\Pages\Models;
 
+use Closure;
 use Mindy\Base\Mindy;
 use Mindy\Helper\Alias;
 use Mindy\Orm\Fields\AutoSlugField;
@@ -191,7 +192,11 @@ class Page extends TreeModel
     public function getViews()
     {
         $finder = Mindy::app()->getComponent('finder');
-        $pathApp = Alias::get($finder->theme ? 'application.themes.' . $finder->theme . '.templates.pages' : 'application.templates.pages');
+        $theme = $finder->theme;
+        if ($theme instanceof Closure) {
+            $theme = $theme->__invoke();
+        }
+        $pathApp = Alias::get($theme ? 'application.themes.' . $theme . '.templates.pages' : 'application.templates.pages');
         $pathModule = Alias::get('pages.templates.pages');
 
         $templates_app = $this->getTemplates($pathApp);
