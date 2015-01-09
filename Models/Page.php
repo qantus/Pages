@@ -256,7 +256,7 @@ class Page extends TreeModel
 
     public function getAbsoluteUrl()
     {
-        return $this->reverse('page.view', ['url' => $this->url]);
+        return $this->reverse('page:view', ['url' => $this->url]);
     }
 
     /**
