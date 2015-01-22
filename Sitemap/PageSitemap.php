@@ -47,6 +47,6 @@ class PageSitemap extends Sitemap
     public function getLoc($data)
     {
         $url = $data['url'];
-        return $data['is_index'] ? $this->reverse('page.view', ['/']) : $this->reverse('page.view', [$url]);
+        return $data['is_index'] ? $this->reverse('page:view', ['/']) : $this->reverse('page:view', [$url]);
     }
 }
