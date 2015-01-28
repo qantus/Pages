@@ -39,7 +39,7 @@ class CommentController extends BaseCommentController
 
     public function fetchModel($url)
     {
-        $qs = Page::objects()->published()->filter(['url' => '/' . $url]);
+        $qs = Page::objects()->published()->filter(['url' => $url]);
         $model = Mindy::app()->cache->get('page_' . $url . '_comments', $qs->get());
         if($model === null) {
             $this->error(404);
@@ -47,7 +47,7 @@ class CommentController extends BaseCommentController
         return $model;
     }
 
-    public function getTemplate()
+    public function getTemplate($name = NULL)
     {
         return 'pages/_comments.html';
     }
