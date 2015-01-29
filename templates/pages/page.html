@@ -1,13 +1,13 @@
 {%- extends request.isAjax ? "ajax.html" : "pages/base.html" -%}
 
 {%- block heading -%}
-<h1>{{ model.name }}</h1>
+    <h1>{{ model.name }}</h1>
 {%- endblock -%}
 
 {%- block content -%}
-{{ model.content|raw }}
+    {{ model.content|safe }}
 
-{% if hasComments %}
-    {{ render_comments(request, "pages/_comments.html", model, model.comments)|safe }}
-{% endif %}
+    {% if hasComments %}
+        {{ render_comments(request, "pages/_comments.html", model, model.comments)|safe }}
+    {% endif %}
 {%- endblock -%}

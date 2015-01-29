@@ -4,10 +4,9 @@ namespace Modules\Pages\Forms;
 
 use Mindy\Base\Mindy;
 use Mindy\Form\Fields\DropDownField;
+use Mindy\Form\Fields\EditorField;
 use Mindy\Form\Fields\TextAreaField;
-use Mindy\Form\Fields\WysiwygField;
 use Mindy\Form\ModelForm;
-use Modules\Core\Fields\Form\TimeStampField;
 use Modules\Meta\Forms\MetaInlineForm;
 use Modules\Pages\PagesModule;
 
@@ -19,24 +18,24 @@ class PagesForm extends ModelForm
 {
     public $exclude = ['comments'];
 
-    public function getFieldsets()
-    {
-        $enableComments = Mindy::app()->getModule('Pages')->enableComments;
-        $fieldsets = [
-            PagesModule::t('Main information') => [
-                'name', 'url', 'content_short', 'content',
-                'parent', 'is_index', 'is_published', 'published_at', 'file'
-            ],
-            PagesModule::t('Display settings') => [
-                'view', 'view_children', 'sorting'
-            ]
-        ];
-        return $enableComments ? array_merge($fieldsets, [
-            PagesModule::t('Comments settings') => [
-                'enable_comments', 'enable_comments_form'
-            ],
-        ]) : $fieldsets;
-    }
+//    public function getFieldsets()
+//    {
+//        $enableComments = Mindy::app()->getModule('Pages')->enableComments;
+//        $fieldsets = [
+//            PagesModule::t('Main information') => [
+//                'name', 'url', 'content_short', 'content',
+//                'parent', 'is_index', 'is_published', 'published_at', 'file'
+//            ],
+//            PagesModule::t('Display settings') => [
+//                'view', 'view_children', 'sorting'
+//            ]
+//        ];
+//        return $enableComments ? array_merge($fieldsets, [
+//            PagesModule::t('Comments settings') => [
+//                'enable_comments', 'enable_comments_form'
+//            ],
+//        ]) : $fieldsets;
+//    }
 
     public function getFields()
     {
@@ -50,7 +49,7 @@ class PagesForm extends ModelForm
                 'label' => PagesModule::t('Short content')
             ],
             'content' => [
-                'class' => WysiwygField::className(),
+                'class' => EditorField::className(),
                 'label' => PagesModule::t('Content')
             ],
             'view' => [
@@ -67,12 +66,12 @@ class PagesForm extends ModelForm
         ];
     }
 
-    public function getInlines()
-    {
-        return [
-            ['meta' => MetaInlineForm::className()]
-        ];
-    }
+//    public function getInlines()
+//    {
+//        return [
+//            ['meta' => MetaInlineForm::className()]
+//        ];
+//    }
 
     public function getModel()
     {

@@ -7,9 +7,9 @@
 {% block content %}
     <div class="pageset">
         {% if model.content %}
-        <article>
-            {{ model.content|raw }}
-        </article>
+            <article>
+                {{ model.content|safe }}
+            </article>
         {% endif %}
 
         <div class="children-list">
@@ -23,7 +23,7 @@
             {% endfor %}
 
             <div class="pager-holder">
-                {{ pager.render()|safe }}
+                {{ pager|safe }}
             </div>
         </div>
     </div>
