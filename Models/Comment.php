@@ -15,7 +15,9 @@
 namespace Modules\Pages\Models;
 
 use Mindy\Orm\Fields\ForeignField;
+use Mindy\Orm\Fields\TreeForeignField;
 use Modules\Comments\Models\BaseComment;
+use Modules\Pages\PagesModule;
 
 /**
  * Class Comment
@@ -28,8 +30,9 @@ class Comment extends BaseComment
     {
         return array_merge(parent::getFields(), [
             'page' => [
-                'class' => ForeignField::className(),
-                'modelClass' => Page::className()
+                'class' => TreeForeignField::className(),
+                'modelClass' => Page::className(),
+                'verboseName' => PagesModule::t('Page')
             ]
         ]);
     }
