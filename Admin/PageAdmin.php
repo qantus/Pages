@@ -12,15 +12,6 @@ use Modules\Pages\PagesModule;
  */
 class PageAdmin extends NestedAdmin
 {
-    /**
-     * @var string
-     */
-    public $updateTemplate = 'admin/pages/update.html';
-    /**
-     * @var string
-     */
-    public $createTemplate = 'admin/pages/create.html';
-
     public function getColumns()
     {
         return ['name'];

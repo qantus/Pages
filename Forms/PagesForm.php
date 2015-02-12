@@ -18,24 +18,29 @@ class PagesForm extends ModelForm
 {
     public $exclude = ['comments'];
 
-//    public function getFieldsets()
-//    {
-//        $enableComments = Mindy::app()->getModule('Pages')->enableComments;
-//        $fieldsets = [
-//            PagesModule::t('Main information') => [
-//                'name', 'url', 'content_short', 'content',
-//                'parent', 'is_index', 'is_published', 'published_at', 'file'
-//            ],
-//            PagesModule::t('Display settings') => [
-//                'view', 'view_children', 'sorting'
-//            ]
-//        ];
-//        return $enableComments ? array_merge($fieldsets, [
-//            PagesModule::t('Comments settings') => [
-//                'enable_comments', 'enable_comments_form'
-//            ],
-//        ]) : $fieldsets;
-//    }
+    public function getFieldsets()
+    {
+        $enableComments = Mindy::app()->getModule('Pages')->enableComments;
+        $fieldsets = [
+            PagesModule::t('Main information') => [
+                'name', 'url', 'parent', 'is_index', 'is_published'
+            ],
+            PagesModule::t('Content') => [
+                'content_short', 'content'
+            ],
+            PagesModule::t('Additional') => [
+                'published_at', 'file'
+            ],
+            PagesModule::t('Display settings') => [
+                'view', 'view_children', 'sorting'
+            ]
+        ];
+        return $enableComments ? array_merge($fieldsets, [
+            PagesModule::t('Comments settings') => [
+                'enable_comments', 'enable_comments_form'
+            ],
+        ]) : $fieldsets;
+    }
 
     public function getFields()
     {
