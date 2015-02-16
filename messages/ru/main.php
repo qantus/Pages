@@ -6,6 +6,7 @@ return array (
   'Pages' => 'Страницы',
   'Create page' => 'Добавить страницу',
   'Update page' => 'Редактировать страницу',
+  'Additional' => 'Дополнительно',
   'Publish' => 'Опубликовать',
   'Unpublish' => 'Снять с публикации',
   'Main information' => 'Основная информация',
