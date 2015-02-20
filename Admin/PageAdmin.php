@@ -12,6 +12,8 @@ use Modules\Pages\PagesModule;
  */
 class PageAdmin extends NestedAdmin
 {
+    public $linkColumn = 'name';
+    
     public function getColumns()
     {
         return ['name'];
